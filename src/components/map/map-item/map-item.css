@@ -1,0 +1,31 @@
+.map-item-container {
+  min-width: 200px;
+}
+
+.map-item-icon {
+  position: relative;
+  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.275), -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.map-item-container .map-item-name {
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.map-item-container .map-item-name .icon {
+  cursor: pointer;
+}
+
+.map-item-container .map-item-comment {
+  font-style: italic;
+}
+
+.map-item-container .map-item-coords {
+  font-size: 12px;
+}
+
+.map-item-container .map-item-added {
+  font-size: 12px;
+}
