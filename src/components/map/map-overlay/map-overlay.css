@@ -1,0 +1,37 @@
+.origo-vertical {
+  position: absolute;
+  border-left: 1px rgb(25, 25, 25) dashed;
+}
+
+.origo-horizontal {
+  position: absolute;
+  border-top: 1px rgb(25, 25, 25) dashed;
+}
+
+.origo-horizontal .origo-horizontal-marker {
+  position: absolute;
+  border-left: 1px rgb(25, 25, 25) dashed;
+  padding-left: 5px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.origo-horizontal .origo-horizontal-marker:last-child {
+  border-left: 0;
+  border-right: 1px rgb(25, 25, 25) dashed;
+}
+
+.origo-vertical .origo-vertical-marker {
+  position: absolute;
+  border-top: 1px rgb(25, 25, 25) dashed;
+  padding-top: 5px;
+  padding-left: 5px;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.origo-vertical .origo-vertical-marker:last-child {
+  position: absolute;
+  border-top: 0;
+  border-bottom: 1px rgb(25, 25, 25) dashed;
+}
