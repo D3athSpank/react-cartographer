@@ -48,6 +48,11 @@ export default withRouter(
         mousePosition: { x: e.nativeEvent.clientX, y: e.nativeEvent.clientY }
       });
     }
+    mapClick(e) {
+      if (e.nativeEvent.buttons == 1) {
+        this.setState({ addMarkerPosition: this.state.addMarkerPosition ? null : this.state.mousePosition });
+      }
+    }
     renderAddItemWindow() {
       if (this.state.addMarkerPosition) {
         let { mapHeight, mapWidth } = { ...this.mapSize() };
@@ -83,7 +88,7 @@ export default withRouter(
         <div className='map-container'>
           <div
             className='map'
-            onMouseDown={() => this.setState({ addMarkerPosition: this.state.addMarkerPosition ? null : this.state.mousePosition })}
+            onMouseDown={e => this.mapClick(e)}
             onMouseMove={e => this.mapMouseMove(e)}
             onWheel={e => this.mapScrolling(e)}
             ref={mapRef => {
@@ -95,12 +100,11 @@ export default withRouter(
           </div>
           {this.renderAddItemWindow()}
           <MapInformation
-            scale={this.props.currentMap.scale}
             onResetZoom={() => MapActions.setScale(1)}
             mousePosition={this.state.mousePosition}
             mapWidth={mapWidth}
             mapHeight={mapHeight}
-            mapName={this.props.currentMap.name}
+            currentMap={this.props.currentMap}
           />
         </div>
       );

@@ -68,6 +68,7 @@ class MapStore {
   }
   onSetScale(scale) {
     scale = parseFloat(scale);
+    scale = Math.round(scale * 100) / 100;
     if (scale < 0.02) {
       scale = 0.02;
     }
@@ -76,6 +77,24 @@ class MapStore {
     }
     let modified = { ...this.state.currentMap, scale: scale };
     this.save(modified);
+  }
+  onToggleVisited({ x, y }) {
+    let currentItems = this.state.currentMap.items.slice();
+    let index = currentItems.findIndex(o => {
+      return o.x === x && o.y === y;
+    });
+    currentItems[index].visited = !currentItems[index].visited;
+    let modified = { ...this.state.currentMap, items: currentItems };
+    this.save(modified);
+  }
+  onImportMap(mapToImport) {
+    debugger;
+    let current = this.state.maps.slice();
+    current.push(mapToImport);
+    this.setState({
+      maps: current
+    });
+    localStorage.setItem('maps', JSON.stringify(current));
   }
   save(modified) {
     let currentName = this.state.currentMap.name;

@@ -59,6 +59,7 @@ export default class AddItemWindow extends Component {
           />
           <Input
             style={{ width: '350px', margin: '0px 10px' }}
+            type={this.state.newItemType === 'pod' ? 'number' : 'text'}
             placeholder={this.getPlaceHolderText(this.state.newItemType)}
             value={this.state.newItemComment}
             onChange={(e, { value }) =>

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Icon, Popup } from 'semantic-ui-react';
+import { Icon, Popup, Checkbox } from 'semantic-ui-react';
 import moment from 'moment';
+import MapActions from '../../../actions/map-actions';
 import './map-item.css';
 export default class MapItem extends Component {
   static propTypes = {
@@ -10,18 +11,18 @@ export default class MapItem extends Component {
     origo: PropTypes.any.isRequired,
     onRemove: PropTypes.func.isRequired
   };
-  getIconData(type) {
+  getIconData(type, visited) {
     switch (type) {
       case 'poi':
         return { name: 'map pin', color: 'orange' };
       case 'pod':
-        return { name: 'selected radio', color: 'yellow' };
+        return { name: 'selected radio', color: !visited ? 'red' : 'yellow' };
       case 'wreck':
-        return { name: 'remove', color: 'green' };
+        return { name: 'remove', color: !visited ? 'red' : 'green' };
       case 'base':
         return { name: 'circle thin', color: 'blue' };
       case 'cave':
-        return { name: 'angle double down', color: 'purple' };
+        return { name: 'angle double down', color: !visited ? 'red' : 'purple' };
       case 'resource':
         return { name: 'registered', color: 'olive' };
       default:
@@ -31,17 +32,23 @@ export default class MapItem extends Component {
   renderAdditionalData(item) {
     switch (item.type) {
       case 'poi':
-        return <div>{item.comment}</div>;
+        return <div style={{ fontSize: 10 }}>{item.comment}</div>;
       case 'pod':
         return <div>{item.comment}</div>;
       default:
         return null;
     }
   }
+  renderVisited(item) {
+    let { type, visited, x, y } = { ...item };
+    if (type === 'wreck' || type === 'cave' || type === 'pod') {
+      return <Checkbox style={{ fontSize: 12 }} checked={visited} label='Visited' onChange={() => MapActions.toggleVisited({ x: x, y: y })} />;
+    }
+  }
   render() {
     let { origo, scale, item, onRemove } = { ...this.props };
     let style = { position: 'absolute', left: `${origo.x + item.x * scale - 8}px`, top: `${origo.y + item.y * scale - 8}px` };
-    let iconData = this.getIconData(item.type);
+    let iconData = this.getIconData(item.type, item.visited);
     return (
       <Popup
         hoverable
@@ -65,7 +72,7 @@ export default class MapItem extends Component {
             </div>
             <div className='map-item-added'>{item.added}</div>
             <div className='map-item-added'>Discovered {moment(item.added).from(moment().format('LLL'))}</div>
-            <div className='map-item-added'>{JSON.stringify(item)}</div>
+            {this.renderVisited(item)}
           </div>
         }
       />
