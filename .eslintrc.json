@@ -14,6 +14,7 @@
     "sourceType": "module"
   },
   "rules": {
+    "no-debugger": "off",
     "quotes": ["error", "single"],
     "no-const-assign": "warn",
     "no-this-before-super": "warn",
