@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-// import MapHelper from '../../../utils/map-helper';
 import { Icon, Modal, Button, Checkbox } from 'semantic-ui-react';
 import JSONPretty from 'react-json-pretty';
 import CopyToClipboard from 'react-copy-to-clipboard';
