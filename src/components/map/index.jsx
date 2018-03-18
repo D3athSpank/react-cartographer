@@ -39,7 +39,7 @@ export default withRouter(
         this.setWindowSize();
       };
       window.oncontextmenu = e => {
-        // e.preventDefault();
+        e.preventDefault();
       };
       MapActions.loadMap(this.props.match.params.mapId);
       setTimeout(() => {
