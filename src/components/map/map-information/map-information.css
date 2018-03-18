@@ -1,5 +1,5 @@
 .map-information {
-  position: absolute;
+  position: fixed;
   top: 2px;
   left: 2px;
   background: black;
@@ -9,7 +9,7 @@
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
   font-size: 12px;
   display: flex;
-  flex-direction: column
+  flex-direction: column;
 }
 
 .map-information .name {
@@ -21,7 +21,18 @@
   cursor: pointer;
 }
 
+.map-information .invertion {
+  margin-bottom: 4px;
+}
+
+.map-information .invertion .ui.checkbox label {
+  font-size: 10px;
+  color: white !important;
+  margin: 0px 3px;
+}
+
 .visible.transition {
   display: flex !important;
   flex-direction: column;
+  margin-top: 0px !important;
 }

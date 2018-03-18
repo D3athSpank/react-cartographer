@@ -3,7 +3,7 @@ import MapActions from '../actions/map-actions';
 class MapStore {
   constructor() {
     this.state = {
-      currentMap: { scale: 1, items: [], name: '' },
+      currentMap: { scale: 1, items: [], name: '', invert: { x: 1, y: 1 } },
       maps: [],
       mapItems: [
         { value: 'pod', text: 'Pod' },
@@ -21,7 +21,8 @@ class MapStore {
     maps.push({
       name: name,
       items: [],
-      scale: 0.5
+      scale: 0.5,
+      invert: { x: 1, y: 1 }
     });
     localStorage.setItem('maps', JSON.stringify(maps));
     this.onLoadMaps();
@@ -68,7 +69,7 @@ class MapStore {
   }
   onSetScale(scale) {
     scale = parseFloat(scale);
-    scale = Math.round(scale * 100) / 100;
+    scale = Math.round(scale * 1000) / 1000;
     if (scale < 0.02) {
       scale = 0.02;
     }
@@ -95,6 +96,16 @@ class MapStore {
       maps: current
     });
     localStorage.setItem('maps', JSON.stringify(current));
+  }
+  onInvertX() {
+    let modified = { ...this.state.currentMap };
+    modified.invert.x = modified.invert.x == 1 ? -1 : 1;
+    this.save(modified);
+  }
+  onInvertY() {
+    let modified = { ...this.state.currentMap };
+    modified.invert.y = modified.invert.y == 1 ? -1 : 1;
+    this.save(modified);
   }
   save(modified) {
     let currentName = this.state.currentMap.name;

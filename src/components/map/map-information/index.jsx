@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import MapHelper from '../../../utils/map-helper';
-import { Icon, Modal, Button, Popup } from 'semantic-ui-react';
+// import MapHelper from '../../../utils/map-helper';
+import { Icon, Modal, Button, Checkbox } from 'semantic-ui-react';
 import JSONPretty from 'react-json-pretty';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import MapActions from '../../../actions/map-actions';
 import './map-information.css';
 export default class MapInformation extends Component {
   static propTypes = {
     currentMap: PropTypes.any.isRequired,
-    onResetZoom: PropTypes.func.isRequired,
-    mousePosition: PropTypes.any.isRequired,
-    mapWidth: PropTypes.any.isRequired,
-    mapHeight: PropTypes.any.isRequired
+    mouseCoords: PropTypes.any.isRequired,
+    mouseWorldCoords: PropTypes.any.isRequired,
+    windowSize: PropTypes.any.isRequired,
+    origo: PropTypes.any.isRequired
   };
   constructor(props) {
     super(props);
@@ -22,8 +23,8 @@ export default class MapInformation extends Component {
   }
   renderSourceModal() {
     return (
-      <div className='cool' ref={ref => (this.tk = ref)}>
-        <Modal mountNode={this.tk} open={this.state.showSourceDialog} onClose={() => this.setState({ showSourceDialog: false })}>
+      <div className='cool'>
+        <Modal open={this.state.showSourceDialog} onClose={() => this.setState({ showSourceDialog: false })}>
           <Modal.Header>Source of {this.props.currentMap.name}</Modal.Header>
           <Modal.Content>
             <Modal.Description>
@@ -40,7 +41,7 @@ export default class MapInformation extends Component {
     );
   }
   render() {
-    let { onResetZoom, mousePosition, mapWidth, mapHeight, currentMap } = { ...this.props };
+    let { mouseWorldCoords, mouseCoords, windowSize, origo, currentMap } = { ...this.props };
     return (
       <div className='map-information'>
         <div className='name'>
@@ -50,10 +51,25 @@ export default class MapInformation extends Component {
           {currentMap.name}
         </div>
         <div className='zoom'>
-          <Icon name='zoom' />: {Math.round(currentMap.scale * 100) / 100} <Icon name='remove' color='red' onClick={() => onResetZoom()} />
+          <Icon name='zoom' />: {currentMap.scale}
         </div>
         <div className='pos'>
-          <Icon name='marker' />: {JSON.stringify(MapHelper.pointToMapCoords(mousePosition, currentMap.scale, mapWidth, mapHeight)).replace(/"/g, ' ')}
+          <Icon name='marker' />: {JSON.stringify(mouseWorldCoords).replace(/"/g, ' ')}
+        </div>
+        <div className='pos'>
+          <Icon name='marker' />: {JSON.stringify(mouseCoords).replace(/"/g, ' ')}
+        </div>
+        <div className='pos'>
+          <Icon name='windows' />: {JSON.stringify(windowSize).replace(/"/g, ' ')}
+        </div>
+        <div className='pos'>
+          <Icon name='bullseye' />: {JSON.stringify(origo).replace(/"/g, ' ')}
+        </div>
+        <div className='invertion'>
+          <span>
+            Invert: <Checkbox label='X' checked={currentMap.invert.x == -1 ? true : false} onChange={() => MapActions.invertX()} />
+            <Checkbox label='Y' checked={currentMap.invert.y == -1 ? true : false} onChange={() => MapActions.invertY()} />
+          </span>
         </div>
         <Button compact size='mini' negative onClick={() => this.setState({ showSourceDialog: true })}>
           Show Source

@@ -7,8 +7,7 @@ import './map-item.css';
 export default class MapItem extends Component {
   static propTypes = {
     item: PropTypes.any.isRequired,
-    scale: PropTypes.any.isRequired,
-    origo: PropTypes.any.isRequired,
+    position: PropTypes.any.isRequired,
     onRemove: PropTypes.func.isRequired
   };
   getIconData(type, visited) {
@@ -46,8 +45,8 @@ export default class MapItem extends Component {
     }
   }
   render() {
-    let { origo, scale, item, onRemove } = { ...this.props };
-    let style = { position: 'absolute', left: `${origo.x + item.x * scale - 8}px`, top: `${origo.y + item.y * scale - 8}px` };
+    let { position, item, onRemove } = { ...this.props };
+    let style = { position: 'absolute', left: `${position.x - 8}px`, top: `${position.y - 8}px` };
     let iconData = this.getIconData(item.type, item.visited);
     return (
       <Popup

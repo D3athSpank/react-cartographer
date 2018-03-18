@@ -1,16 +1,12 @@
-.map-container {
-  background-color: #313131;
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.map-container-wrapper {
   height: 100%;
   width: 100%;
 }
 
-.map {
-  width: 100%;
+.map-container {
   height: 100%;
-  position: relative;
+  width: 100%;
   color: white;
+  position: relative;
+  overflow: auto;
 }

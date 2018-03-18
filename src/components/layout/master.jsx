@@ -4,8 +4,9 @@ import connectToStores from 'alt-utils/lib/connectToStores';
 import './layout.css';
 
 import MapLibrary from '../map-library';
-import CartoMap from '../map';
+import MapView from '../map';
 import StartView from './start-view';
+
 import MapStore from '../../stores/map-store';
 import MapActions from '../../actions/map-actions';
 
@@ -42,7 +43,7 @@ export default connectToStores(
             <Route
               path='/map/:mapId'
               render={props => {
-                return <CartoMap {...this.props} />;
+                return <MapView {...this.props} />;
               }}
             />
           </Switch>
