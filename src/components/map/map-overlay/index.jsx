@@ -14,10 +14,10 @@ export default class MapOverlay extends Component {
     };
   }
   render() {
-    let { origo, invert } = { ...this.props };
+    let { origo } = { ...this.props };
 
     return [
-      <div key='vertical' className='origo-vertical' style={{ left: origo.x || 0, height: (origo.y || 0) * 2 + 5 }}>
+      <div key='vertical' className='origo-vertical' style={{ left: origo.x || 0, height: (origo.y || 0) * 2 }}>
         <div className='origo-vertical-marker' style={{ position: 'absolute', left: 0, top: (origo.y || 0) * 0 }}>
           {this.screenToMap({ x: 0, y: origo.y * 0 }).y}
         </div>
@@ -40,11 +40,11 @@ export default class MapOverlay extends Component {
         <div className='origo-vertical-marker' style={{ position: 'absolute', left: 0, top: (origo.y || 0) * 1.75 }}>
           {this.screenToMap({ x: 0, y: origo.y * 1.75 }).y}
         </div>
-        <div className='origo-vertical-marker' style={{ position: 'absolute', left: 0, top: (origo.y || 0) * 2 }}>
+        <div className='origo-vertical-marker' style={{ position: 'absolute', left: 0, bottom: 0 }}>
           {this.screenToMap({ x: 0, y: origo.y * 2 }).y}
         </div>
       </div>,
-      <div key='horizontal' className='origo-horizontal' style={{ top: origo.y || 0, width: (origo.x || 0) * 2 + 5 }}>
+      <div key='horizontal' className='origo-horizontal' style={{ top: origo.y || 0, width: (origo.x || 0) * 2 }}>
         <div className='origo-horizontal-marker' style={{ position: 'absolute', left: 0, top: 0 }}>
           {this.screenToMap({ x: origo.x * 0, y: 0 }).x}
         </div>
@@ -67,8 +67,8 @@ export default class MapOverlay extends Component {
         <div className='origo-horizontal-marker' style={{ position: 'absolute', left: (origo.x || 0) * 1.75, top: 0 }}>
           {this.screenToMap({ x: origo.x * 1.75, y: 0 }).x}
         </div>
-        <div className='origo-horizontal-marker' style={{ position: 'absolute', left: (origo.x || 0) * 2, top: 0 }}>
-          {this.screenToMap({ x: origo.x * 2, y: 0 }).x}l
+        <div className='origo-horizontal-marker' style={{ position: 'absolute', right: 0, top: 0 }}>
+          {this.screenToMap({ x: origo.x * 2, y: 0 }).x}
         </div>
       </div>
     ];
