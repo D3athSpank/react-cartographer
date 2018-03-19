@@ -1,11 +1,12 @@
 import alt from '../utils/alt';
 import MapActions from '../actions/map-actions';
+
 class MapStore {
   constructor() {
     this.state = {
       currentMap: { scale: 1, items: [], name: '', invert: { x: 1, y: 1 } },
       maps: [],
-      mapItems: [
+      mapObjects: [
         { value: 'pod', text: 'Pod' },
         { value: 'wreck', text: 'Wreck' },
         { value: 'base', text: 'Base' },

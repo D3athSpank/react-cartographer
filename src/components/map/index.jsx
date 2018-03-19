@@ -12,7 +12,9 @@ import './map.css';
 export default withRouter(
   class MapView extends Component {
     static propTypes = {
-      currentMap: PropTypes.any.isRequired
+      match: PropTypes.any.isRequired,
+      currentMap: PropTypes.any.isRequired,
+      mapObjects: PropTypes.any.isRequired
     };
     constructor(props) {
       super(props);
@@ -124,10 +126,10 @@ export default withRouter(
         y: parseInt(Math.abs(maxY.y) * this.props.currentMap.scale)
       };
       if (origo.y * 2 + 10 < this.state.windowSize.height) {
-        origo.y = origo.y + (this.state.windowSize.height - origo.y * 2) / 2 - 20;
+        origo.y = origo.y + (this.state.windowSize.height - origo.y * 2) / 2;
       }
       if (origo.x * 2 + 10 < this.state.windowSize.width) {
-        origo.x = origo.x + (this.state.windowSize.width - origo.x * 2) / 2 - 20;
+        origo.x = origo.x + (this.state.windowSize.width - origo.x * 2) / 2;
       }
       return origo;
     }
@@ -141,7 +143,7 @@ export default withRouter(
           <AddItemWindow
             key='window'
             newItemPosition={this.state.mouseWorldCoords}
-            mapObjects={this.props.mapItems}
+            mapObjects={this.props.mapObjects}
             onAddItem={item => {
               this.setState({
                 addMarkerPosition: null
