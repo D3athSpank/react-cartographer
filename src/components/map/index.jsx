@@ -82,9 +82,17 @@ export default withRouter(
       if (e.nativeEvent.button == 2) {
         e.preventDefault();
         const { scrollLeft, scrollTop } = this.mapRef;
-        this.setState({ dragging: true, scrollLeft, scrollTop, clientX: e.clientX, clientY: e.clientY });
+        this.setState({
+          dragging: true,
+          scrollLeft,
+          scrollTop,
+          clientX: e.clientX,
+          clientY: e.clientY
+        });
       } else {
-        this.setState({ addMarkerPosition: this.state.addMarkerPosition ? null : this.state.mouseCoords });
+        this.setState({
+          addMarkerPosition: this.state.addMarkerPosition ? null : this.state.mouseCoords
+        });
       }
     }
     _mouseMove(e) {
@@ -100,8 +108,12 @@ export default withRouter(
           y: e.clientY
         },
         mouseWorldCoords: {
-          x: parseInt((e.clientX + this.mapRef.scrollLeft - origo.x) / this.props.currentMap.scale) * this.props.currentMap.invert.x,
-          y: parseInt((e.clientY + this.mapRef.scrollTop - origo.y) / this.props.currentMap.scale) * this.props.currentMap.invert.y
+          x:
+            parseInt((e.clientX + this.mapRef.scrollLeft - origo.x) / this.props.currentMap.scale) *
+            this.props.currentMap.invert.x,
+          y:
+            parseInt((e.clientY + this.mapRef.scrollTop - origo.y) / this.props.currentMap.scale) *
+            this.props.currentMap.invert.y
         }
       });
     }
@@ -135,7 +147,11 @@ export default withRouter(
     }
     renderAddItemWindow() {
       if (this.state.addMarkerPosition) {
-        let style = { position: 'absolute', left: this.state.addMarkerPosition.x - 8, top: this.state.addMarkerPosition.y - 8 };
+        let style = {
+          position: 'absolute',
+          left: this.state.addMarkerPosition.x - 8,
+          top: this.state.addMarkerPosition.y - 8
+        };
         return [
           <div key='marker' className='map-item-icon' style={style}>
             <Icon name='bullseye' color='red' />
@@ -169,10 +185,22 @@ export default withRouter(
             this.mapRef = mapRef;
           }}
         >
-          <MapOverlay origo={origo} invert={this.props.currentMap.invert} scale={this.props.currentMap.scale} />
+          <MapOverlay
+            origo={origo}
+            invert={this.props.currentMap.invert}
+            scale={this.props.currentMap.scale}
+          />
+
           {this.props.currentMap.items.map((i, index) => {
             let position = this.pointToScreen({ x: i.x, y: i.y }, origo);
-            return <MapItem key={index} item={i} position={position} onRemove={i => MapActions.removeItem(i)} />;
+            return (
+              <MapItem
+                key={index}
+                item={i}
+                position={position}
+                onRemove={i => MapActions.removeItem(i)}
+              />
+            );
           })}
         </div>,
         <MapInformation key='info' {...this.props} {...this.state} origo={origo} />,

@@ -2,7 +2,19 @@ import alt from '../utils/alt';
 
 class UserActions {
   constructor() {
-    this.generateActions('invertX', 'invertY', 'importMap', 'toggleVisited', 'deleteMap', 'createMap', 'loadMaps', 'loadMap', 'setScale', 'addItem', 'removeItem');
+    this.generateActions(
+      'invertX',
+      'invertY',
+      'importMap',
+      'toggleVisited',
+      'deleteMap',
+      'createMap',
+      'loadMaps',
+      'loadMap',
+      'setScale',
+      'addItem',
+      'removeItem'
+    );
   }
 }
 export default alt.createActions(UserActions);

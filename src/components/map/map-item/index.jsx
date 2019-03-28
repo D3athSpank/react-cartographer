@@ -41,7 +41,14 @@ export default class MapItem extends Component {
   renderVisited(item) {
     let { type, visited, x, y } = { ...item };
     if (type === 'wreck' || type === 'cave' || type === 'pod') {
-      return <Checkbox style={{ fontSize: 12 }} checked={visited} label='Visited' onChange={() => MapActions.toggleVisited({ x: x, y: y })} />;
+      return (
+        <Checkbox
+          style={{ fontSize: 12 }}
+          checked={visited}
+          label='Visited'
+          onChange={() => MapActions.toggleVisited({ x: x, y: y })}
+        />
+      );
     }
   }
   render() {
@@ -70,7 +77,9 @@ export default class MapItem extends Component {
               <div style={{ marginRight: '5px' }}>Y: {item.y}</div>
             </div>
             <div className='map-item-added'>{item.added}</div>
-            <div className='map-item-added'>Discovered {moment(item.added).from(moment().format('LLL'))}</div>
+            <div className='map-item-added'>
+              Discovered {moment(item.added).from(moment().format('LLL'))}
+            </div>
             {this.renderVisited(item)}
           </div>
         }
