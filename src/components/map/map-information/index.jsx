@@ -6,6 +6,7 @@ import JSONPretty from 'react-json-pretty';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import MapActions from '../../../actions/map-actions';
 import './map-information.css';
+import moment from "moment";
 export default class MapInformation extends Component {
   static propTypes = {
     currentMap: PropTypes.any.isRequired,
@@ -17,8 +18,12 @@ export default class MapInformation extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showSourceDialog: false
+      showSourceDialog: false,
+      time: new Date()
     };
+  }
+  componentDidMount() {
+    this.interval = setInterval(() => { this.setState({ time: new Date() }) }, 1000)
   }
   renderSourceModal() {
     return (
@@ -63,6 +68,9 @@ export default class MapInformation extends Component {
         </div>
         <div className='pos'>
           <Icon name='bullseye' />: {JSON.stringify(origo).replace(/"/g, ' ')}
+        </div>
+        <div className='pos'>
+          <Icon name='bullseye' />{moment(this.state.time).format('HH:mm:ss')}
         </div>
         <div className='invertion'>
           <span>

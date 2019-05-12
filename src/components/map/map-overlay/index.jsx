@@ -33,8 +33,10 @@ export default class MapOverlay extends Component {
       >
         <img
           src={RawMap}
-          width={`${100 * (this.props.scale / 0.645)}%`}
-          style={{ position: 'absolute', opacity: 0.5 }}
+          // width={`${100 * (this.props.scale / 0.5)}%`}
+          style={{
+            position: 'absolute', opacity: 0.495, transform: `scale(${1.32*this.props.scale}, ${1.32*this.props.scale})`
+          }}
         />
       </div>,
       <div
